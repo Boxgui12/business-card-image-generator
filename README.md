@@ -21,6 +21,14 @@ Generador de tarjetas de presentacion en Python con Pillow y Flask.
 .\.venv\Scripts\python -m pip install -r requirements.txt
 ```
 
+## Uso rapido
+
+1. Activa el entorno virtual.
+2. Ejecuta el servidor con `.\.venv\Scripts\python app.py`.
+3. Abre `http://127.0.0.1:5000`.
+4. Completa el formulario, elige la categoria y genera los 10 diseños.
+5. Selecciona el diseño final y descarga el PNG.
+
 ## Ejecutar el servidor
 
 ```powershell
