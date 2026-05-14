@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ strings.web_page_title }}</title>
+  <script>
+    (() => {
+      const savedScrollY = Number({{ scroll_y|default('0')|int }});
+      if (Number.isFinite(savedScrollY) && savedScrollY > 0) {
+        window.history.scrollRestoration = "manual";
+        window.addEventListener("load", () => {
+          window.scrollTo(0, savedScrollY);
+        }, { once: true });
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+</head>
+<body>
+  <div class="page-background">
+    <div class="bg-orb bg-orb-left"></div>
+    <div class="bg-orb bg-orb-right"></div>
+    <div class="bg-grid"></div>
+  </div>
+
+  <main class="container-fluid position-relative py-4 py-lg-5">
+    <div class="container position-relative">
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-5">
+          <section class="hero-panel h-100">
+            <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+              <div>
+                <div class="eyebrow">CardImageGenerator</div>
+                <h1 class="display-6 mb-3">{{ strings.web_hero_title }}</h1>
+                <p class="hero-copy mb-0">{{ strings.web_hero_copy }}</p>
+              </div>
+              <form method="get" class="lang-switch">
+                <label class="form-label small text-uppercase text-white-50 mb-2" for="lang">{{ strings.web_language }}</label>
+                <select id="lang" name="lang" class="form-select form-select-sm" onchange="this.form.submit()">
+                  <option value="en" {% if lang == 'en' %}selected{% endif %}>English</option>
+                  <option value="es" {% if lang == 'es' %}selected{% endif %}>Español</option>
+                </select>
+              </form>
+            </div>
+
+            <div class="feature-list">
+              <div class="feature-item">
+                <div class="feature-dot"></div>
+                <div>
+                  <div class="feature-title">{{ strings.web_feature_1_title }}</div>
+                  <div class="feature-text">{{ strings.web_feature_1_text }}</div>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-dot"></div>
+                <div>
+                  <div class="feature-title">{{ strings.web_feature_2_title }}</div>
+                  <div class="feature-text">{{ strings.web_feature_2_text }}</div>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-dot"></div>
+                <div>
+                  <div class="feature-title">{{ strings.web_feature_3_title }}</div>
+                  <div class="feature-text">{{ strings.web_feature_3_text }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-stat">
+              <span class="stat-label">Output</span>
+              <span class="stat-value">PNG business card</span>
+            </div>
+          </section>
+        </div>
+
+        <div class="col-lg-7">
+          <section
+            class="form-panel h-100 category-theme category-theme--{{ preferred_category }}"
+            style="--category-primary: {{ category_theme.primary }}; --category-secondary: {{ category_theme.secondary }}; --category-tint: {{ category_theme.tint }}; --category-text: {{ category_theme.text }}; --category-surface: {{ category_theme.surface }}; --category-border: {{ category_theme.border }}; --category-button-text: {{ category_theme.button_text }};"
+          >
+            <div class="d-flex flex-column flex-xl-row justify-content-between align-items-xl-end gap-3 mb-4">
+              <div>
+                <h2 class="section-title mb-2">{{ strings.web_form_title }}</h2>
+                <p class="section-copy mb-0">{{ strings.web_page_subtitle }}</p>
+              </div>
+              <div class="pill-badge">Live preview</div>
+            </div>
+
+            {% if success_message %}
+              <div class="alert alert-success border-0 shadow-sm rounded-4 mb-4" role="alert">
+                {{ success_message }}
+              </div>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data" class="row g-3" id="business-card-form">
+              <input type="hidden" name="lang" value="{{ lang }}">
+              <input type="hidden" name="stage" value="{{ form_stage }}">
+              <input type="hidden" name="photo_ref" value="{{ photo_ref }}">
+              <input type="hidden" name="batch_id" value="{{ batch_id }}">
+              <input type="hidden" name="design_ids" value="{{ design_ids_str }}">
+              <input type="hidden" name="scroll_y" value="{{ scroll_y }}">
+
+              <div class="col-md-6">
+                <label for="name" class="form-label form-label-icon"><i class="bi bi-person-vcard icon-name"></i><span>{{ strings.web_name_label }}</span></label>
+                <input type="text" class="form-control form-control-lg" id="name" name="name" value="{{ values.name }}" placeholder="John Smith" required>
+              </div>
+              <div class="col-md-6">
+                <label for="title" class="form-label form-label-icon"><i class="bi bi-briefcase-fill icon-title"></i><span>{{ strings.web_title_label }}</span></label>
+                <input type="text" class="form-control form-control-lg" id="title" name="title" value="{{ values.title }}" placeholder="Software Developer" required>
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label form-label-icon"><i class="bi bi-envelope-at-fill icon-email"></i><span>{{ strings.web_email_label }}</span></label>
+                <input type="email" class="form-control form-control-lg" id="email" name="email" value="{{ values.email }}" placeholder="john@email.com" required>
+              </div>
+              <div class="col-md-6">
+                <label for="phone" class="form-label form-label-icon"><i class="bi bi-telephone-fill icon-phone"></i><span>{{ strings.web_phone_label }}</span></label>
+                <input type="text" class="form-control form-control-lg" id="phone" name="phone" value="{{ values.phone }}" placeholder="(555) 123-4567" required>
+              </div>
+              <div class="col-12">
+                <label for="photo" class="form-label form-label-icon"><i class="bi bi-image-fill icon-photo"></i><span>{{ strings.web_photo_label }}</span></label>
+                <input type="file" class="form-control form-control-lg" id="photo" name="photo" accept="image/*">
+                <div class="form-text">{{ strings.web_photo_hint }}</div>
+              </div>
+              <div class="col-12">
+                {% if not design_options %}
+                  <label for="preferred_category" class="form-label form-label-icon"><i class="bi bi-palette-fill icon-category"></i><span>{{ strings.web_category_label }}</span></label>
+                  <select id="preferred_category" name="preferred_category" class="form-select form-select-lg">
+                    {% for category in category_options %}
+                      <option value="{{ category.id }}" {% if preferred_category == category.id %}selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="form-text">{{ strings.web_category_hint }}</div>
+                {% else %}
+                  <div class="category-summary">
+                    <div class="category-summary-label">{{ strings.web_category_label }}</div>
+                    <div class="picker-chip">{{ preferred_category_label }}</div>
+                  </div>
+                {% endif %}
+              </div>
+
+              {% if design_options %}
+                <div class="col-12">
+                  <section class="design-picker">
+                    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-2 mb-3">
+                      <div>
+                        <h3 class="picker-title mb-1">{{ strings.web_designs_title }}</h3>
+                        <p class="picker-copy mb-0">{{ strings.web_designs_copy }}</p>
+                      </div>
+                      <div class="d-flex flex-wrap justify-content-end gap-2">
+                        <div class="picker-chip">{{ design_options|length }} designs</div>
+                        <div class="picker-chip">{{ preferred_category_label }}</div>
+                      </div>
+                    </div>
+                    {% if preferred_category == 'all' %}
+                      <div class="design-filter-bar" role="toolbar" aria-label="{{ strings.web_filter_label }}">
+                        <span class="design-filter-label">{{ strings.web_filter_label }}</span>
+                        <div class="design-filter-group">
+                          <button type="button" class="design-filter-btn active" data-design-filter="all">{{ strings.web_filter_all }}</button>
+                          <button type="button" class="design-filter-btn" data-design-filter="classic">{{ strings.web_filter_classic }}</button>
+                          <button type="button" class="design-filter-btn" data-design-filter="modern">{{ strings.web_filter_modern }}</button>
+                          <button type="button" class="design-filter-btn" data-design-filter="dark">{{ strings.web_filter_dark }}</button>
+                        </div>
+                      </div>
+                    {% endif %}
+                    <div class="row g-3">
+                      {% for design in design_options %}
+                        <div class="col-md-6 design-card-column" data-design-column>
+                          <label class="design-card {% if selected_design|int == design.id %}selected{% endif %}" data-design-card data-category="{{ design.category }}">
+                            <input type="radio" name="design_id" value="{{ design.id }}" {% if selected_design|int == design.id %}checked{% endif %}>
+                            <div class="design-card-top">
+                              <span class="design-index">{{ "%02d"|format(loop.index) }}</span>
+                              <div class="design-card-meta">
+                                <span class="design-category">{{ design.category_label }}</span>
+                                <span class="design-name">{{ design.name }}</span>
+                              </div>
+                            </div>
+                            <div class="design-thumb">
+                              <img src="{{ design.preview_url }}" class="img-fluid" alt="{{ design.name }}">
+                            </div>
+                          </label>
+                        </div>
+                      {% endfor %}
+                    </div>
+                    <div class="design-empty d-none" data-design-empty>
+                      <i class="bi bi-funnel"></i>
+                      <span>{{ strings.web_filter_empty }}</span>
+                    </div>
+                  </section>
+                </div>
+              {% endif %}
+
+              <div class="col-12 d-flex flex-wrap gap-3 pt-2">
+                <button type="submit" class="btn btn-primary btn-lg px-4 btn-with-icon category-cta">
+                  <i class="bi bi-stars"></i>
+                  <span>{% if design_options %}{{ strings.web_create_selected }}{% elif preferred_category != 'all' %}{{ strings.web_generate_filtered_designs }}{% else %}{{ strings.web_generate_designs }}{% endif %}</span>
+                </button>
+                <a class="btn btn-outline-light btn-lg px-4 btn-with-icon" href="{{ url_for('index', lang=lang) }}"><i class="bi bi-arrow-counterclockwise"></i><span>{{ strings.web_start_over }}</span></a>
+              </div>
+            </form>
+
+            <div class="preview-wrap mt-5">
+              <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+                <h3 class="preview-title mb-0">{% if design_options %}{{ strings.web_designs_title }}{% else %}{{ strings.web_preview_title }}{% endif %}</h3>
+                {% if download_url %}
+                  <a class="btn btn-sm btn-outline-primary btn-with-icon btn-with-icon-sm" href="{{ download_url }}" download="{{ download_name }}"><i class="bi bi-download"></i><span>{{ strings.web_download }}</span></a>
+                {% endif %}
+              </div>
+
+              {% if preview_url and not design_options %}
+                <div class="preview-card">
+                  <img src="{{ preview_url }}" class="img-fluid rounded-4" alt="Generated business card">
+                </div>
+              {% elif not design_options %}
+                <div class="preview-placeholder">
+                  <div class="placeholder-badge">PNG</div>
+                  <p class="mb-0">{{ strings.web_preview_empty }}</p>
+                </div>
+              {% endif %}
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script>
+    (() => {
+      const form = document.getElementById("business-card-form");
+      const filterButtons = Array.from(document.querySelectorAll("[data-design-filter]"));
+      const designCards = Array.from(document.querySelectorAll("[data-design-card]"));
+      const designColumns = Array.from(document.querySelectorAll("[data-design-column]"));
+      const emptyState = document.querySelector("[data-design-empty]");
+
+      if (form) {
+        form.addEventListener("submit", () => {
+          const scrollField = form.querySelector('input[name="scroll_y"]');
+          if (scrollField) {
+            scrollField.value = String(window.scrollY || document.documentElement.scrollTop || 0);
+          }
+        });
+      }
+
+      if (!filterButtons.length || !designCards.length) {
+        return;
+      }
+
+      const setVisibleDesign = (category) => {
+        let visibleCount = 0;
+
+        designColumns.forEach((column) => {
+          const card = column.querySelector("[data-design-card]");
+          const isVisible = category === "all" || card.dataset.category === category;
+          column.classList.toggle("d-none", !isVisible);
+          if (isVisible) {
+            visibleCount += 1;
+          }
+        });
+
+        filterButtons.forEach((button) => {
+          button.classList.toggle("active", button.dataset.designFilter === category);
+        });
+
+        if (emptyState) {
+          emptyState.classList.toggle("d-none", visibleCount !== 0);
+        }
+
+        const checkedCard = designCards.find((card) => card.querySelector("input[type='radio']")?.checked);
+        if (checkedCard && checkedCard.closest("[data-design-column]")?.classList.contains("d-none")) {
+          const firstVisibleCard = designColumns
+            .find((column) => !column.classList.contains("d-none"))
+            ?.querySelector("input[type='radio']");
+          if (firstVisibleCard) {
+            firstVisibleCard.checked = true;
+          }
+        }
+
+        designCards.forEach((card) => {
+          const input = card.querySelector("input[type='radio']");
+          card.classList.toggle("selected", Boolean(input && input.checked));
+        });
+      };
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => setVisibleDesign(button.dataset.designFilter));
+      });
+
+      designCards.forEach((card) => {
+        const input = card.querySelector("input[type='radio']");
+        if (input) {
+          input.addEventListener("change", () => {
+            designCards.forEach((candidate) => {
+              const candidateInput = candidate.querySelector("input[type='radio']");
+              candidate.classList.toggle("selected", Boolean(candidateInput && candidateInput.checked));
+            });
+          });
+        }
+      });
+
+      setVisibleDesign("all");
+    })();
+  </script>
+</body>
+</html>

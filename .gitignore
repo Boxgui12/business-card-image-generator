@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+
+backend/uploads/
+backend/generated_cards/
+
+sample_design_test.png
+preview_gallery_test.html
