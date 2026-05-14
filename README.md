@@ -1,6 +1,6 @@
 # Business Card Image Generator
 
-<img src="docs/logo-square.svg" alt="Business Card Image Generator logo" width="360">
+[![Business Card Image Generator logo](docs/logo.svg)](docs/logo.svg)
 
 [![Python CI](https://github.com/Boxgui12/business-card-image-generator/actions/workflows/python-ci.yml/badge.svg)](https://github.com/Boxgui12/business-card-image-generator/actions/workflows/python-ci.yml)
 
