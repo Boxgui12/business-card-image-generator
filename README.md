@@ -47,6 +47,16 @@ http://127.0.0.1:5000
 .\.venv\Scripts\python business_card_generator.py --lang es
 ```
 
+## Ejemplos visuales
+
+### Vista previa de la tarjeta
+
+![Business card example modern](docs/example-card-modern.png)
+
+### Otro estilo generado
+
+![Business card example classic](docs/example-card-classic.png)
+
 ## Notas
 
 - La interfaz permite cambiar entre ingles y espanol.
