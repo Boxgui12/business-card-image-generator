@@ -1,0 +1,65 @@
+<svg width="1600" height="500" viewBox="0 0 1600 500" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Business Card Image Generator</title>
+  <desc id="desc">A premium logo for the business card generator application.</desc>
+  <defs>
+    <linearGradient id="bg" x1="120" y1="40" x2="1500" y2="460" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#081426"/>
+      <stop offset="0.55" stop-color="#0C2340"/>
+      <stop offset="1" stop-color="#09101D"/>
+    </linearGradient>
+    <linearGradient id="cardA" x1="120" y1="180" x2="420" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123253"/>
+      <stop offset="1" stop-color="#1C5B8A"/>
+    </linearGradient>
+    <linearGradient id="cardB" x1="160" y1="220" x2="500" y2="410" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F385F"/>
+      <stop offset="1" stop-color="#0D2238"/>
+    </linearGradient>
+    <linearGradient id="strokeAccent" x1="190" y1="240" x2="520" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2FD7FF"/>
+      <stop offset="0.55" stop-color="#67B6FF"/>
+      <stop offset="1" stop-color="#F4C542"/>
+    </linearGradient>
+    <linearGradient id="titleFill" x1="680" y1="170" x2="1450" y2="340" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5F8FC"/>
+      <stop offset="0.6" stop-color="#E4ECF5"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="subtitleFill" x1="770" y1="310" x2="1330" y2="310" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2FD7FF"/>
+      <stop offset="0.5" stop-color="#B7E8FF"/>
+      <stop offset="1" stop-color="#F4C542"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="1600" height="500" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="500" rx="36" fill="url(#bg)"/>
+  <circle cx="188" cy="112" r="84" fill="#2FD7FF" fill-opacity="0.08"/>
+  <circle cx="1470" cy="84" r="110" fill="#F4C542" fill-opacity="0.06"/>
+  <circle cx="1400" cy="420" r="180" fill="#2FD7FF" fill-opacity="0.03"/>
+
+  <g filter="url(#shadow)">
+    <rect x="138" y="158" width="265" height="184" rx="28" transform="rotate(-8 138 158)" fill="url(#cardA)" fill-opacity="0.92"/>
+    <rect x="186" y="180" width="265" height="184" rx="28" fill="url(#cardB)" fill-opacity="0.96" stroke="url(#strokeAccent)" stroke-width="4"/>
+    <rect x="462" y="218" width="112" height="112" rx="20" fill="#123253" stroke="#2FD7FF" stroke-width="4"/>
+    <path d="M491 296L519 264L545 285L571 251" stroke="#67B6FF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="501" cy="245" r="11" fill="#B7E8FF"/>
+    <circle cx="270" cy="255" r="26" fill="#7EC8FF"/>
+    <path d="M228 307C231 279 250 264 271 264C292 264 311 279 314 307" stroke="#7EC8FF" stroke-width="12" stroke-linecap="round"/>
+    <rect x="322" y="248" width="106" height="14" rx="7" fill="#EAF3FB" fill-opacity="0.92"/>
+    <rect x="322" y="282" width="106" height="14" rx="7" fill="#EAF3FB" fill-opacity="0.92"/>
+    <rect x="322" y="316" width="58" height="12" rx="6" fill="#F4C542" fill-opacity="0.96"/>
+    <path d="M589 170L604 202L636 217L604 231L589 264L573 231L541 217L573 202L589 170Z" fill="#F4C542"/>
+  </g>
+
+  <text x="680" y="250" fill="url(#titleFill)" font-family="Manrope, Segoe UI, Arial, sans-serif" font-size="104" font-weight="800" letter-spacing="-2">
+    Business Card
+  </text>
+  <text x="678" y="334" fill="url(#subtitleFill)" font-family="Space Grotesk, Segoe UI, Arial, sans-serif" font-size="54" font-weight="700" letter-spacing="10">
+    IMAGE GENERATOR
+  </text>
+  <line x1="680" y1="356" x2="910" y2="356" stroke="#2FD7FF" stroke-opacity="0.55" stroke-width="4" stroke-linecap="round"/>
+  <line x1="1224" y1="356" x2="1410" y2="356" stroke="#F4C542" stroke-opacity="0.6" stroke-width="4" stroke-linecap="round"/>
+</svg>

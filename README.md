@@ -1,5 +1,7 @@
 # Business Card Image Generator
 
+[![Business Card Image Generator logo](docs/logo.svg)](docs/logo.svg)
+
 [![Python CI](https://github.com/Boxgui12/business-card-image-generator/actions/workflows/python-ci.yml/badge.svg)](https://github.com/Boxgui12/business-card-image-generator/actions/workflows/python-ci.yml)
 
 Generador de tarjetas de presentacion en Python con Pillow y Flask.
